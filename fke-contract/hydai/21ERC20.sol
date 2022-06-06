@@ -24,11 +24,7 @@ contract ERC20 is IERC20 {
     // 从 msg.sender 转 tokens 个 Token给 to 这个address
     // msg.sender  --> tokens --> to
     function transfer(address to, uint256 tokens) external returns (bool success) {
-        _balances[msg.sender] = _balances[msg.sender].sub(tokens);
-        _balances[to] = _balances[to].add(tokens);
-
-        emit Transfer(msg.sender, to, tokens);
-        return true;
+        return _transfer(msg.sender, to, tokens);
     }
 
     // 得到 tokenOwner 授权给 spender 使用的 Token 剩余数量
@@ -48,6 +44,12 @@ contract ERC20 is IERC20 {
     // 将 tokens 个 Token 从 from 转到 to
     function transferFrom(address from, address to, uint256 tokens) external returns (bool success) {
         _approve[from][msg.sender] = _approve[from][msg.sender].sub(tokens);
+     
+        return _transfer(from, to, tokens);
+    }
+
+    // 公共部分抽离为单独方法，供内部调用
+    function _transfer(address from, address to, uint256 tokens) internal returns (bool success) {
         _balances[from] = _balances[from].sub(tokens);
         _balances[to] = _balances[to].add(tokens);
         emit Transfer(from, to, tokens);
