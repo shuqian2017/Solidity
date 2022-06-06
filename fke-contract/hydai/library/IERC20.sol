@@ -33,4 +33,9 @@ interface IERC20 {
         address indexed spender,
         uint256 tokens
     );
+
+    event Burn(
+        address indexed from,
+        uint256 tokens
+    );
 }
