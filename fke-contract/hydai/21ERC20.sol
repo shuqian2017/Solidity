@@ -6,7 +6,11 @@ import "./library/IERC20.sol";
 contract ERC20 is IERC20 {
     using SafeMath for uint256;
 
-    uint256 private _totalSupply;
+    string public constant name = "fke token";
+    uint8 public constant decimals = 18;
+    string public constant symbol = "FKE"; 
+
+    uint256 public _totalSupply;
     mapping(address => uint256) _balances;
     mapping(address => mapping(address => uint256)) _approve;
 
