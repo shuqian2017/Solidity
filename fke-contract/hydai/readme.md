@@ -62,13 +62,14 @@ struct
 
 ### day15
 + Abstract contract  （抽象合约）
-+ contract A is B {}   A继承B
++ contract A is B {}   (A继承B)
++ `Internal`关键字能使 Abstract Contract 具备一个构建函数；constructor 被声明为internal时，该contract会被当作`Abstract Contract`
 
 ### day16
-interface  只能定义function 且其modifier应该为external； 不能继承、constructor、变量、struct
+interface  只能定义function 且其modifier应该为`external`； 不能继承、constructor、变量、struct、enum
 
 ### day17
-+ library 部署一次且在指定位置，但是可以被多个地方使用； 不能继承
++ library 部署一次且在指定位置，但是可以被多个地方使用；没有`state variables`; 不能继承; 无法接收Ether；
 
 + 通过library把mapping包装成常见的set结构 
 > + Set.Insert(Key)   // 插入
@@ -77,6 +78,8 @@ interface  只能定义function 且其modifier应该为external； 不能继承�
 
 ### day18
 SafeMath  （常见的公共库: add、 sub、 mul、 div、 mod）
+
+[SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils/math) 
 
 ### day19
 Import 、 using ... for 

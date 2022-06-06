@@ -2,6 +2,10 @@ pragma solidity ^0.4.25;
 
 contract Reward {
 
+    /*  TODO: Reward Record
+        anchor => rewarder
+    */
+
     event LogReward(address anchor, address rewarder, string nickname, 
         uint value, string message);
 
