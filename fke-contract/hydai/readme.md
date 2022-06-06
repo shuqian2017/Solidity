@@ -79,7 +79,7 @@ interface  只能定义function 且其modifier应该为`external`； 不能继�
 ### day18
 SafeMath  （常见的公共库: add、 sub、 mul、 div、 mod）
 
-[SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils/math) 
+[SafeMath](https://github.com/OpenZeppelin/openzeppelin-contracts/tree/master/contracts/utils/math){:target="_blank"}
 
 ### day19
 Import 、 using ... for 
