@@ -50,8 +50,8 @@ contract MyICOContract {
 
     function endICO() public onlyOwner whenICOStart {
         icoState = ICOState.END;
-        owner.transfer(address(this).balance);
-        IERC20(tokenAddress).transfer(owner, caps.sub(currentFund));
+        owner.transfer(address(this).balance);  // 提取 ether
+        IERC20(tokenAddress).transfer(owner, caps.sub(currentFund));    // 提取 tokens
     }
 
     function() public payable whenICOStart {
