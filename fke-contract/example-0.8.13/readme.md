@@ -35,7 +35,7 @@
 
 #### 2.2.1 合约结构
 + 状态变量
-    + 1
+    + 状态变量是永久地存储在合约存储中的值
 + 函数
     + 函数通常在合约内部定义，但是也可以在外部定义。
     + 函数调用可以发生在合约内部或外部；且函数对其他合约由不同程度的可见性。
@@ -343,8 +343,99 @@
 
 #### 2.2.4 表达式和控制结构
 
++ 控制结构
+    + `if`  `else`  `while`  `do`  `for`  `break`  `continue`  `return` `? :`
+    + `try` / `catch` (异常处理)
+    + ~~`switch`  `goto`~~
+
++ 函数调用
+    + 内部函数调用
+    > 只能在同一合约实例的函数，可以进行内部调用; 且尽量避免过多的递归调用，每次递归至少使用一个<font color="blue">堆栈槽</font>（最多有1024个可用）
+
+    + 外部函数调用
+    > 调用其他合约的函数，需要外部调用。对于外部调用所有的函数参数都需要被复制到内存。
+
+        > 调用其他合约的函数时, 通过特定选项 `{value: 10, gas: 10000}` 来指定发送的Wei 和 gas
+
+    + 具名调用和匿名函数参数
+    > 调用函数时只要参数列表相符，可以按任意顺序排列
+
++ 通过`new`创建合约
+
+    > 使用关键字`new` 可以创建一个新合约;待创建合约的代码必须事先知道
+
+    + 加盐的合约创建/create2 : 通过给定的盐值，创建合约的字节码和构造函数参数来计算创建合约的地址。 
+
++ 表达式计算顺序
++ 赋值
+    + 解构赋值和返回多值
+    > 变量声明和非声明变量不能混个赋值，即此示例无效: `(x, uint y) = (1, 2);`
+
+    + 数组和结构体的复杂性
+
++ 作用域和声明
+    > **变量声明后将有默认初始值，其初始值字节表示全部为零**
+
+        > 在 for 循环语句中初始化的变量，其可见性仅维持到 for 循环的结束
+
++ 算术运算的检查模式与非检查模式
+    + 从Solidity 0.8.0开始，所有的算术运算默认就会进行溢出检查(SafeMath)
+    ```solidity
+    pragma solidity ^0.8.0;
+    contract C {
+        function f(uint a, uint b) pure public returns (uint) {
+            // 减法溢出会返回“截断”的结果
+            unchecked { return a - b; }
+        }
+        function g(uint a, uint b) pure public returns (uint) {
+            // 溢出会抛出异常
+            return a - b;
+        }
+    }
+    ```
+
+    > 此设置仅影响语法上位于 unchecked 块内的语句。 在块中调用的函数不会此影响
+
+        > 除 0（或除 0取模）的异常是不能被 unchecked 忽略的
+
++ 错误处理及异常： Assert   Require   Revert
+    + 用 assert 检查异常(Panic) 和 require 检查错误(Error)
+    + 常见错误码 [<font color="red">错误码</font>](https://learnblockchain.cn/docs/solidity/control-structures.html#assert-panic-require-error){:traget="_blank"}
+
+    + 在 require(condition, f()) 里，函数 f 会被执行，即便 condition 为 True
+    + 调用`Error(string)`函数,提供的字符串被经过ABI编码后以十六进制形式返回
+    + `try/catch`： 外部调用失败可以通过try/catch来捕获
+
 
 #### 2.2.5 合约
+
++ 创建合约
++ 可见性和getter函数
+    + 状态变量3种可见性:  `public`  `internal`  `private`
+    + 函数的4种可见性: `external`  `public`  `internal`  `private`
+
+    ```solidity
+    pragma solidity >=0.4.16 <0.9.0;
+
+    contract C {
+        uint public data;
+        function x() public {
+            data = 3; // 内部访问
+            uint val = this.data(); // 外部访问
+        }
+    }
+    ```  
+
++ modifier
++ Constant 和 lmmutable状态变量
++ 函数
++ 事件 Events
++ 错误和回退语句
++ 继承
++ 抽象合约
++ 接口
++ 库
++ Using for 
 
 
 
